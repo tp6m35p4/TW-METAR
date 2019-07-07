@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="tw">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <title>TW_METAR</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="./src/js/clipboard.min.js"></script>
+  </head>
+  <body>
+    <div class="fuild-container" id="app">
+
+		<nav class="navbar navbar-expand- navbar-light bg-light">
+		  <a class="navbar-brand" >TW_METAR</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="nabar-button">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav nav" id="navTab" role="tablist">
+			  <li class="nav-item" data-toggle="collapse">
+				<a class="nav-link active" id="home-tab" role="tab">Home</a>
+              </li>
+              <li class="nav-item" v-for="item in items" data-toggle="collapse" data-target=".navbar-collapse.show" role="tab">
+                <a class="nav-link" data-toggle="tab" :id="item.StationID+'-tab'" :href="'#' + item.StationID" >{{item.StationID}} / {{item.AirportName.Zh_tw}}</a>
+              </li>
+			  
+			</ul>
+		  </div>
+        </nav>
+        
+		<div class="tab-content" id="metarContent">
+		  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">tp6m35p4@gmail.com</div>
+		  <!-- <div class="tab-pane fade" id="profile" role="tabpanel">...</div> -->
+		  <div class="tab-pane fade" :id="item.StationID" role="tabpanel" v-for="item in items" :aria-labelledby="item.StationID+'-tab'">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Airport</th>
+                            <th scope="col">{{item.StationID}} / {{item.AirportName.Zh_tw}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>METAR</td>
+                            <td>{{ item.MetarText}}</td>
+                            <td><button type="button" class="btn btn-primary metar-copy" :data-clipboard-text="item.MetarText">COPY METAR</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+		  </div>
+		</div>
+	</div>
+	<script>
+        new ClipboardJS('.metar-copy');
+        
+        Vue.component('nav-item', {
+            props: ['title'],
+            template: '<li class="nav-item">\
+				<a class="nav-link" id="{{title}}-tab" data-toggle="tab" :href="{{title}}" role="tab">{{title}} / </a>\
+			  </li>'
+        })
+        
+		var app = new Vue({
+            el: "#app",
+            data: {
+                items: []
+            },
+            methods:{
+                fetchData: function() {
+                    fetch('https://ptx.transportdata.tw/MOTC/v2/Air/METAR/Airport?$top=30&$format=JSON')
+                        .then(res => {
+                            if(res.ok) {
+                                return res.json()
+                            }
+                            throw new Error('Get data error');
+                        }).then(data => {
+                            this.items = data
+                        })
+                        .catch(err => {
+                            alert('API error')
+                        })
+                }
+            },
+            mounted() {
+                this.fetchData()
+            }
+        })
+	</script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
