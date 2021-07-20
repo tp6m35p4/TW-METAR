@@ -8,12 +8,11 @@
   <meta name="title" content="Taiwan METAR - 台灣機場天氣資訊">
   <meta name="description" content="Taiwan METAR讓使用者在不同裝置上皆可以快速取得台灣各機場即時天氣資訊，並且可以一鍵複製">
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  <link href="src/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 
   <title>Taiwan METAR - 台灣機場天氣資訊</title>
-  <script src="src/js/vue.global.prod.js"></script>
   <script src="src/js/clipboard.min.js"></script>
   <link href="src/css/sidebar.css" rel="stylesheet">
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -65,8 +64,7 @@
                 <tr>
                   <th scope="col" class="col-2">Airport</th>
                   <th scope="col" class="col-8">
-                    <p v-if="shownAirport.AirportName" class="m-0">{{ shownAirport.StationID }} / {{ shownAirport ?
-                      shownAirport.AirportName.Zh_tw : '' }}</p>
+                    <p v-if="shownAirport.AirportName" class="m-0">{{ shownAirport.StationID }} / {{ shownAirport.AirportName.Zh_tw }}</p>
                   </th>
                   <th scope="col" class="col-2"><button type="button" class="btn btn-primary btn-sm metar-copy"
                       :data-clipboard-text="shownAirport.MetarText">COPY METAR</button></th>
@@ -87,14 +85,9 @@
 
   <script>
     new ClipboardJS('.metar-copy');
-
   </script>
-  <script src="src/js/index.js"></script>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
+  <script src="src/js/bundle.js"></script>
+  <script src="src/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

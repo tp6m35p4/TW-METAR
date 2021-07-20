@@ -1,0 +1,29 @@
+{
+  "name": "tw-metar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "mix watch",
+    "prod": "npm run production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tp6m35p4/TW-METAR.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tp6m35p4/TW-METAR/issues"
+  },
+  "homepage": "https://github.com/tp6m35p4/TW-METAR#readme",
+  "dependencies": {
+    "vue": "^3.1.5",
+    "webpack": "^5.45.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.7.2"
+  }
+}

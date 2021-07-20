@@ -1,3 +1,5 @@
+import { createApp } from 'vue'
+'use strict';
 const App = {
     data() {
       return {
@@ -16,7 +18,7 @@ const App = {
             }
             throw new Error('Get data error');
           }).then(data => {
-            for (i in this.airportList) {
+            for (let i in this.airportList) {
               let d = this.getAirportDataById(this.airportList[i], data);
               if (d) {
                 this.airports.push(d);
@@ -36,7 +38,7 @@ const App = {
         this.isCollapse = ! this.isCollapse;
       },
       getAirportDataById (id, data) {
-        fData = data.filter(airport => airport.StationID == id)
+        let fData = data.filter(airport => airport.StationID == id)
         return fData.length > 0 ? fData[0] : undefined
       }
     },
@@ -45,4 +47,4 @@ const App = {
     }
   };
 
-  const vm = Vue.createApp(App).mount('#app');
+  const vm = createApp(App).mount('#app');
