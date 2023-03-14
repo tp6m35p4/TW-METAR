@@ -21,7 +21,7 @@
   "homepage": "https://github.com/tp6m35p4/TW-METAR#readme",
   "dependencies": {
     "vue": "^3.1.5",
-    "webpack": "^5.45.1"
+    "webpack": "^5.76.0"
   },
   "devDependencies": {
     "webpack-cli": "^4.7.2"
